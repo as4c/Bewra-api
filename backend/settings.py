@@ -175,17 +175,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000', 
-    "https://bewra.onrender.com"
+    "https://bewra.vercel.app"
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://bewra.onrender.com"
+    "https://bewra.vercel.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     'https://*.127.0.0.1', 
-    "https://bewra.onrender.com"
+    "https://bewra.vercel.app"
 ]
 
 REST_FRAMEWORK = {
@@ -231,7 +231,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 # Social auth config
-BASE_FRONTEND_URL = os.environ.get('BASE_FRONTEND_URL', default='https://bewra.onrender.com')
+BASE_FRONTEND_URL = os.environ.get('BASE_FRONTEND_URL', default='https://bewra.vercel.app')
 GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
 GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
 
