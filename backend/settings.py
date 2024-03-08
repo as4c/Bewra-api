@@ -173,12 +173,20 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'Bewra', 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000', 
+    "https://bewra.onrender.com"
+]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://bewra.onrender.com"
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000",'https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    'https://*.127.0.0.1', 
+    "https://bewra.onrender.com"
+]
 
 REST_FRAMEWORK = {
     # allow read-only access for unauthenticated users.
@@ -223,7 +231,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 # Social auth config
-BASE_FRONTEND_URL = os.environ.get('BASE_FRONTEND_URL', default='http://localhost:3000')
+BASE_FRONTEND_URL = os.environ.get('BASE_FRONTEND_URL', default='https://bewra.onrender.com')
 GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
 GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
 
