@@ -111,7 +111,7 @@ class ProductCreateView(APIView):
         except ValidationError as ve:
             return Response({"error": ve.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            # Handle other exceptions if needed
+            
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ProductDetailView(APIView):

@@ -12,13 +12,13 @@ from api.utils import Util, get_login_tokens
 from api.permissions import CustomPermission
 from .serializers import (
     VendorUserSerializer,
-    VendorLoginSerializer
+    VendorLoginSerializer,
+    VendorProfileSerializer
 )
 from api.order.models import Order
 from api.product.models import Product
 from api.product.serializers import ProductSerializer
 from rest_framework.decorators import api_view, permission_classes
-from api.accounts.serializers import UserSerializer
 
 
 class VenderUserView(APIView):
@@ -30,7 +30,7 @@ class VenderUserView(APIView):
         user = get_object_or_404(CustomUser, uid = request.user.uid)
         data['owner'] = request.user.uid
         serializer = VendorUserSerializer(data = data)
-        print(serializer)
+        
        
         if serializer.is_valid():
             vendors = serializer.save()
@@ -44,7 +44,7 @@ class VenderUserView(APIView):
             user.is_vendor = True
             user.save()
             return Response({"msg": "Vendor Account Successfully Created.", "data" : serializer.data}, status=status.HTTP_201_CREATED)
-        print(str(serializer.errors))
+        
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
 class VendorProfile(RetrieveAPIView):
@@ -55,12 +55,12 @@ class VendorProfile(RetrieveAPIView):
         return VendorUser.objects.filter(owner=user)
 
     def get(self, request, *args, **kwargs):
-        instance = self.get_queryset().first()  # Get the first instance from the queryset
+        instance = self.get_queryset().first()
         if instance:
-            serializer = VendorUserSerializer(instance)
+            serializer = VendorProfileSerializer(instance)
             return Response(serializer.data)
         else:
-            return Response({"detail": "Vendor profile not found for this user."}, status=404)
+            return Response({"detail": "Vendor profile not found for this user."}, status=status.HTTP_404_NOT_FOUND)
 
 class VendorActionView(APIView):
     permission_classes = [CustomPermission]

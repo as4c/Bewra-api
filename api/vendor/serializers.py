@@ -60,3 +60,10 @@ class VendorLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = VendorUser
         fields = ['vendor_id', 'owner']
+
+class VendorProfileSerializer(serializers.ModelSerializer):
+    owner = UserSerializer() 
+    class Meta:
+        model = VendorUser
+        fields = '__all__'
+
