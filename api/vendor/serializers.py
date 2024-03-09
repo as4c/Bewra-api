@@ -3,11 +3,8 @@ import json
 from rest_framework import serializers
 from .models import VendorUser
 from api.accounts.models import CustomUser
+from api.accounts.serializers import UserSerializer
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'username', 'phone', 'profile_pic', 'gender')
 class VendorUserSerializer(serializers.ModelSerializer):
     owner = UserSerializer() 
     created_at_formatted = serializers.DateTimeField(source='created_at', format="%d %b. %Y", read_only=True)

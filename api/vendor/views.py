@@ -18,6 +18,7 @@ from api.order.models import Order
 from api.product.models import Product
 from api.product.serializers import ProductSerializer
 from rest_framework.decorators import api_view, permission_classes
+from api.accounts.serializers import UserSerializer
 
 
 class VenderUserView(APIView):
@@ -26,13 +27,11 @@ class VenderUserView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data
-        data['owner'] = str(request.user.uid)
         user = get_object_or_404(CustomUser, uid = request.user.uid)
-        print("user ", user)
-        data['owner'] = user
+        data['owner'] = UserSerializer(user)
         serializer = VendorUserSerializer(data = data)
-        print('shop : ', data['shop_name'])
-        # print("here2")
+        print(serializer)
+       
         if serializer.is_valid():
             vendors = serializer.save()
             body = "Congrats! You're now a registered vendor of my company! Please Save your unique vendor Id and Keep private." + vendors.vendor_id
@@ -45,6 +44,7 @@ class VenderUserView(APIView):
             user.is_vendor = True
             user.save()
             return Response({"msg": "Vendor Account Successfully Created.", "data" : serializer.data}, status=status.HTTP_201_CREATED)
+        print(str(serializer.errors))
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
 class VendorProfile(RetrieveAPIView):
