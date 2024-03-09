@@ -29,7 +29,8 @@ class VenderUserView(APIView):
         data['owner'] = str(request.user.uid)
         user = get_object_or_404(CustomUser, uid = request.user.uid)
         print("user ", user)
-        serializer = VendorUserSerializer(data=data)
+        data['owner'] = user
+        serializer = VendorUserSerializer(data = data)
         print('shop : ', data['shop_name'])
         # print("here2")
         if serializer.is_valid():
