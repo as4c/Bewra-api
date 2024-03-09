@@ -28,7 +28,7 @@ class VenderUserView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         user = get_object_or_404(CustomUser, uid = request.user.uid)
-        data['owner'] = UserSerializer(user)
+        data['owner'] = UserSerializer(user).data
         serializer = VendorUserSerializer(data = data)
         print(serializer)
        
