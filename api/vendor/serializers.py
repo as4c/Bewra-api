@@ -6,7 +6,7 @@ from api.accounts.models import CustomUser
 from api.accounts.serializers import UserSerializer
 
 class VendorUserSerializer(serializers.ModelSerializer):
-    owner = UserSerializer() 
+    # owner = UserSerializer() 
     created_at_formatted = serializers.DateTimeField(source='created_at', format="%d %b. %Y", read_only=True)
     retype_bank_account = serializers.CharField(max_length=15, write_only=True)
     retype_aadhar = serializers.CharField(max_length=16, write_only=True)
@@ -15,7 +15,7 @@ class VendorUserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
        
         ret = super().to_representation(instance)
-        # ret['owner'] = str(instance.owner)
+        ret['owner'] = str(instance.owner)
         return ret
 
     def validate(self, data):
