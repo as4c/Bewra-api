@@ -9,7 +9,7 @@ from api.utils import Util
 import random
 from rest_framework.response import Response
 from rest_framework import status
-
+from django.conf import settings
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
   password2 = serializers.CharField(style={'input_type':'password'}, write_only=True)
@@ -70,11 +70,8 @@ class SendPasswordResetEmailSerializer(serializers.Serializer):
     if CustomUser.objects.filter(email=email).exists():
       user = CustomUser.objects.get(email = email)
       uid = urlsafe_base64_encode(force_bytes(user.uid))
-      # print('Encoded UID', uid)
       token = PasswordResetTokenGenerator().make_token(user)
-      # print('Password Reset Token', token)
-      link = 'http://localhost:8000/api/accounts/reset-password/'+ uid +'/'+token
-      print('Password Reset Link', link)
+      link = f'{settings.BASE_FRONTEND_URL}/reset-password/{uid}/{token}'
       # Send EMail
       body = 'Click Following Link to Reset Your Password ' + link
       data = {
